@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-IQ-DAY-4</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <h1>JAVASCRIPT INTERVIEW QUESTIONS PREPARATION DAY-4</h1>
+
+    <p>21.Explain Local Scope, Block Scope, Functional Scope and Scope Chain in javascript?</p>
+    <pre>
+        Local Scope:- Any variable that can be declare inside a function is said to be a Local Scope.
+
+        EX:
+        function myfun(){
+            var a = 10; ---> Local Scope
+            console.log(a);
+        }
+
+        Block Scope:- Any variable that can be declare inside a block {} , can be accessed only
+        inside block, cannot access outside of block.
+        -Block Scope works with only let and const keywords , not with var keyword.
+
+        EX:
+        {
+            let a = 10; ---> Block Scope
+            console.log(a);
+        }
+
+        Function Scope: Any variable that can be declare inside of funtion only access in that
+        function it cannot access outside of function.
+
+        EX:
+        function foo(){
+            var a = 10; ---> Function Scope
+            console.log(a)
+        }
+
+        Scope Chain: Javascript engine also uses Scope Chain to find variables where it is avilable.
+
+        EX:
+        function f1(){
+            var a = 10;
+            function f2(){
+                var b = 20;
+                console.log(a+b);
+            }
+            return f2();
+        }
+        f2();
+    </pre>
+    <p>22.What is difference between null and undefined?</p>
+    <pre>
+        undefined: a variable is declared but no value has been assigned to that variable.
+        -typeof undefined is undefined.
+        -undefined is a primitive value used when a variable has been assigned a value.
+        -It indicates absence of variable itselt.
+
+        EX:
+        console.log(a); ---> it will give undefined
+        var a ;
+
+        Null: Null is a assignment value, you can assign it to a variable.
+        -typeof null is object.
+        -It is primitive value that represants null, empty, non-exists reference.
+        -It indicates the absence of a value for a variable.
+
+        EX:
+        var a = null;
+        console.log(a); ----> it will give null
+    </pre>
+    <p>23.What is an event loop and call stack?</p>
+    <pre>
+        callstack: A callstack is a way for the javascript engine to keep track of its place
+        in code that calls multiples functions.
+        -It has information about what functions are currently being run and
+        what functions are invoked with in that function.
+        -callstack works based on LIFO (Last-In-First-Out).
+
+        event loop: The event loop is a constantly running process that monitors both
+        the callback queue and the callstack.
+        -All web APIs functions like setTimeout,setInterval,fetch will not executed directly
+        inside execution context.
+        -firstly functions are moved to callback queue and then moment callstack gets empty 
+        these functions will be pused to callstack from callback queue by event loop.
+        -if callstack not empty , event loop wait until is is empty and place the next function from
+        the callback queue to callstack.if callback queue is empty, nothing will happen.
+    </pre>
+    <p>24.What are promises and why do we need them?</p>
+    <pre>
+        IN JS, Promise is a special javascript object .it produces a value after an
+        asynchronous operation completes sucessfully or if not completed sucessfully
+        it will give error.
+        -sucessfully operations are indicate by resolve function call, where as errors
+        are indicate by reject function call.
+        -promises are used to handle the asynchronous operations in javascript.
+        they are easy to manage when dealing with multiple asynchronous operations 
+        where callback are creat callback hell leading to unmanagble code.
+
+        A promise is in one of these states:
+        pending: initial state, either fulfilled or rejected.
+        fulfilled: operations was completed sucessfully.
+        reject: operations are faild.
+
+        Benfits of promises:
+        -code readability.
+        -better for handle asynchronous operations.
+        -error handling and etc.
+
+        EX:
+        let p = new Promise((res,rej) => {
+            let a = true;
+            if(a){
+                res('hello this is resolve state')
+            }
+            else{
+                rej('hello this is reject state')
+            }
+        });
+        
+        p.then((x) => {
+            console.log(x);
+        })
+        .catch((y) => {
+            console.log(y);
+        })
+    </pre>
+    <p>25.What is promise chaining?</p>
+    <pre>
+        IN JS, The process of executing a sequnce of asynchronous tasks 
+        one after using promise is known as promise chaining.
+        
+        EX:
+        let promisechaing = new Promise((res,rej) => {
+            setTimeout(()=>{
+               res(10);
+            },1000);
+        
+        });
+        
+        promisechaing.then((a)=>{
+            console.log(a);   --->10
+            return a*2
+        })
+        .then((b)=>{
+            console.log(b);   --->20
+            return b*3
+        })
+        .then((c)=>{
+            console.log(c);   --->60
+            return c*4
+        })
+        .then((d)=>{
+            console.log(d);   --->240
+            return d*5
+        })
+        .then((e)=>{
+            console.log(e);   --->1200
+        })
+    </pre>
+    <p>26.What are pure functions?</p>
+    <pre>
+        IN JS, A pure functions is a function that always return the
+        same result if the same arguments are passed it is called as 
+        pure functions.
+        -pure functions does not have any side-effects.
+        -An inmpure functions is function that contains one or more side-effects
+
+        Pure Function EX:
+        function add(a,b){
+            return a*b
+        }
+        console.log(add(5,6));
+
+        Impure Function EX:
+        var x = 10;
+        function sum(a,b){
+            x = 10;
+            return a+b+x
+        }
+        console.log(sum(5,6));
+    </pre>
+    <script src="./main.js"></script>
+</body>
+</html>
